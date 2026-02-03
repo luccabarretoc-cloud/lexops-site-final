@@ -1,10 +1,10 @@
-import React, { useState, useMemo, Suspense, lazy, useCallback, memo } from 'react';
+import React, { useState, useMemo, Suspense, lazy, useCallback, memo, useEffect } from 'react';
 import { 
   ShieldCheck, Zap, CheckCircle2, Gem,
   Download, ChevronDown, ChevronUp, Lock, 
   Instagram, Facebook, UserCircle,
   ArrowRight, LayoutDashboard, MonitorPlay,
-  KeyRound, LogIn, ArrowLeft, AlertTriangle, ExternalLink
+  AlertTriangle, ExternalLink
 } from 'lucide-react';
 
 // Lazy load do LoginScreen para não bloquear o carregamento principal
@@ -64,6 +64,15 @@ const LexOpsInsightFinal = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
   const [currentView, setCurrentView] = useState('landing');
   const [logoLoadError, setLogoLoadError] = useState(false);
+  
+  // Remover skeleton assim que React renderizar
+  useEffect(() => {
+    const skeleton = document.getElementById('skeleton');
+    if (skeleton) {
+      skeleton.style.display = 'none';
+    }
+    document.documentElement.classList.add('hide-skeleton');
+  }, []);
   
   // Lazy load de seções pesadas
   const [videoRef, videoVisible] = useLazyLoad();
