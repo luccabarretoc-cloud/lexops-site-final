@@ -4,7 +4,7 @@ import {
   Download, ChevronDown, ChevronUp, Lock, 
   Instagram, Facebook, UserCircle,
   ArrowRight, LayoutDashboard, MonitorPlay,
-  KeyRound, LogIn, ArrowLeft
+  KeyRound, LogIn, ArrowLeft, AlertTriangle, ExternalLink
 } from 'lucide-react';
 
 // --- COMPONENTE: TELA DE LOGIN (ATUALIZADO PARA CÓDIGO DA TRANSAÇÃO) ---
@@ -39,13 +39,17 @@ const LoginScreen = ({ onBack, logoLoadError, setLogoLoadError }) => {
           {/* LOGO NA TELA DE LOGIN */}
           <div className="mb-4">
             {!logoLoadError ? (
-              <img 
-                src="/logo-lexops.jpg" 
-                alt="LexOps Insight" 
-                onError={() => setLogoLoadError(true)}
-                loading="lazy"
-                className="h-16 w-auto rounded-xl shadow-lg shadow-violet-500/20 object-cover"
-              />
+              <picture>
+                <source srcSet="/logo-lexops.webp" type="image/webp" />
+                <img 
+                  src="/logo-lexops.jpg" 
+                  alt="LexOps Insight" 
+                  onError={() => setLogoLoadError(true)}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-16 w-auto rounded-xl shadow-lg shadow-violet-500/20 object-cover"
+                />
+              </picture>
             ) : (
               <div className="p-3 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl shadow-lg shadow-violet-500/20">
                 <ShieldCheck size={32} className="text-white" />
@@ -136,20 +140,24 @@ const LexOpsInsightFinal = () => {
     <div className="min-h-screen bg-[#020617] text-slate-200 font-sans selection:bg-violet-500/30">
       
       {/* NAVBAR PREMIUM */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5 h-20 flex items-center">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5 h-20 flex items-center md:backdrop-blur-md sm:backdrop-blur-sm no-backdrop:bg-[#020617]">
         <div className="max-w-7xl mx-auto w-full px-6 flex justify-between items-center">
           
           {/* LOGO AREA */}
           <div className="flex items-center gap-3 cursor-pointer group" onClick={() => window.scrollTo(0, 0)}>
             
             {!logoLoadError ? (
-              <img 
-                src="/logo-lexops.jpg" 
-                alt="LexOps Insight" 
-                onError={() => setLogoLoadError(true)}
-                loading="lazy"
-                className="h-10 w-auto rounded-lg shadow-lg shadow-violet-500/20 object-cover transition-transform group-hover:scale-105"
-              />
+              <picture>
+                <source srcSet="/logo-lexops.webp" type="image/webp" />
+                <img 
+                  src="/logo-lexops.jpg" 
+                  alt="LexOps Insight" 
+                  onError={() => setLogoLoadError(true)}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-10 w-auto rounded-lg shadow-lg shadow-violet-500/20 object-cover transition-transform group-hover:scale-105"
+                />
+              </picture>
             ) : (
               <div className="p-2 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-lg shadow-lg shadow-violet-500/20 transition-transform group-hover:scale-105">
                 <ShieldCheck size={24} className="text-white" />
@@ -177,8 +185,7 @@ const LexOpsInsightFinal = () => {
       <header className="relative pt-32 pb-32 px-6 overflow-hidden">
         {/* Background Glow */}
         <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-violet-600/20 blur-[120px] rounded-full opacity-50 pointer-events-none" />
-        <div className="md:hidden absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-violet-600/10 blur-[60px] rounded-full opacity-30 pointer-events-none" />
-      <div className="md:hidden absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-violet-600/10 blur-[60px] rounded-full opacity-30 pointer-events-none" />
+        <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-violet-600/10 blur-[60px] rounded-full opacity-30 pointer-events-none" />
         <div className="max-w-5xl mx-auto text-center relative z-10 flex flex-col items-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-900/30 border border-violet-500/30 text-violet-300 text-xs font-bold uppercase tracking-wider mb-8 animate-pulse-slow">
             <Zap size={14} className="fill-current" /> Nova Era da Advocacia
@@ -223,7 +230,7 @@ const LexOpsInsightFinal = () => {
       </header>
 
       {/* VIDEO SHOWCASE */}
-      <section className="px-6 -mt-20 relative z-20 mb-24 pt-10">
+      <section className="px-6 -mt-20 relative z-20 mb-24 pt-10 video-section">
         <div className="max-w-5xl mx-auto">
           <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl relative group overflow-hidden ring-1 ring-white/5">
             <div className="absolute top-6 left-0 right-0 text-center z-10 pointer-events-none">
@@ -233,15 +240,16 @@ const LexOpsInsightFinal = () => {
             </div>
 
             <div className="aspect-video bg-black rounded-xl overflow-hidden relative shadow-inner group-hover:shadow-[0_0_30px_rgba(124,58,237,0.2)] transition-shadow duration-500">
-               <video 
+              <video 
                  className="w-full h-full object-cover"
                  controls 
-                 autoPlay={!isMobile}
+                 autoPlay={false}
                  muted 
                  loop 
                  playsInline
                  onPlay={() => setVideoLoaded(true)}
-                 poster="/video-poster.jpg"
+                 poster="/video-poster.webp"
+                 loading="lazy"
                >
                  <source src="/demo.mp4" type="video/mp4" />
                  Seu navegador não suporta a tag de vídeo.

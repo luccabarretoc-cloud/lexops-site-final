@@ -1,0 +1,76 @@
+/* Otimizações de Performance para Mobile */
+
+/* Font Display - Evita bloqueio de renderização */
+@font-face {
+  font-display: swap;
+}
+
+/* Desabilitar blur em mobile para melhorar performance */
+@media (max-width: 768px) {
+  [class*="blur-"] {
+    filter: none !important;
+  }
+  
+  /* Remover animações complexas em mobile */
+  [class*="animate-"] {
+    animation: none !important;
+  }
+  
+  /* Reduzir sombras em mobile */
+  [class*="shadow-"] {
+    box-shadow: none !important;
+  }
+  
+  /* Backdrop blur pesado - remover em mobile */
+  [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+  }
+  
+  /* Transições mais rápidas em mobile */
+  [class*="transition-"] {
+    transition-duration: 100ms !important;
+  }
+}
+
+/* Otimização de imagens */
+img {
+  loading: lazy;
+  decoding: async;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Vídeo responsivo */
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Reduzir paint e composite issues */
+* {
+  will-change: auto;
+}
+
+/* Lazy loading para iframes */
+iframe {
+  loading: lazy;
+}
+
+/* Melhorar performance de scroll */
+html {
+  scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Content Visibility para lazy rendering */
+.video-section {
+  content-visibility: auto;
+}
