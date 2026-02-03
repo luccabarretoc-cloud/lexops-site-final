@@ -148,6 +148,45 @@
         align-items: flex-start;
         gap: 12px;
       }
+
+      iframe {
+        height: calc(100vh - 200px);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      body {
+        touch-action: pan-x pan-y;
+        overflow-x: hidden;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .brand {
+        padding: 12px 20px;
+      }
+
+      .brand img {
+        height: 120px;
+      }
+
+      nav {
+        padding: 12px 12px;
+        gap: 2px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      nav button {
+        padding: 10px 16px;
+        font-size: 10px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      iframe {
+        height: calc(100vh - 160px);
+      }
     }
   </style>
 </head>
