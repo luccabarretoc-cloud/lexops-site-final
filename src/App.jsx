@@ -1,4 +1,4 @@
-import React, { useState, useMemo, Suspense, lazy } from 'react';
+import React, { useState, useMemo, Suspense, lazy, useCallback, memo } from 'react';
 import { 
   ShieldCheck, Zap, CheckCircle2, Gem,
   Download, ChevronDown, ChevronUp, Lock, 
@@ -16,13 +16,63 @@ const LoginScreen = lazy(() => import('./LoginScreen').catch(() => ({
   )
 })));
 
-// --- COMPONENTE: TELA DE LOGIN (ATUALIZADO PARA CÓDIGO DA TRANSAÇÃO) ---
-// --- COMPONENTE PRINCIPAL (LANDING PAGE) ---
+// Componente memoizado para FAQ item - evita re-renders desnecessários
+const FAQItem = memo(({ faq, index, isOpen, onToggle }) => (
+  <div className="border border-white/10 rounded-xl bg-slate-900/80 overflow-hidden">
+    <button 
+      onClick={() => onToggle(index)}
+      className="w-full flex justify-between items-center p-6 text-left hover:bg-white/5 transition-colors"
+    >
+      <span className="font-bold text-slate-200">{faq.question}</span>
+      {isOpen ? <ChevronUp className="text-violet-500" /> : <ChevronDown className="text-slate-500" />}
+    </button>
+    {isOpen && (
+      <div className="p-6 pt-0 text-slate-400 border-t border-white/5">
+        {faq.answer}
+      </div>
+    )}
+  </div>
+));
+
+FAQItem.displayName = 'FAQItem';
+
+// Hook customizado para lazy-load com Intersection Observer
+const useLazyLoad = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = React.useRef(null);
+
+  React.useEffect(() => {
+    if (!ref.current) return;
+    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.01, rootMargin: '50px' }
+    );
+
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return [ref, isVisible];
+};
 const LexOpsInsightFinal = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
   const [currentView, setCurrentView] = useState('landing');
   const [logoLoadError, setLogoLoadError] = useState(false);
-  const [videoLoaded, setVideoLoaded] = useState(false);
+  
+  // Lazy load de seções pesadas
+  const [videoRef, videoVisible] = useLazyLoad();
+  const [gatilhoRef, gatilhoVisible] = useLazyLoad();
+  const [bentoRef, bentoVisible] = useLazyLoad();
+  const [demoRef, demoVisible] = useLazyLoad();
+  const [depoRef, depoVisible] = useLazyLoad();
+  const [pricingRef, pricingVisible] = useLazyLoad();
+  const [faqRef, faqVisible] = useLazyLoad();
   
   // Detectar mobile
   const isMobile = useMemo(() => {
@@ -32,11 +82,8 @@ const LexOpsInsightFinal = () => {
     return false;
   }, []);
 
-  const toggleFAQ = (index) => {
-    setOpenFAQ(openFAQ === index ? null : index);
-  };
-
-  const faqData = [
+  // Memoized FAQData - evita recálculos desnecessários
+  const faqData = useMemo(() => [
     { 
       question: 'Sou do RH / Financeiro / Logística. Posso usar?', 
       answer: "O LexOps não lê 'Leis', ele lê Lógica. Se a sua planilha tem colunas como 'Responsável', 'Valor', 'Status' ou 'Data', o sistema funciona. A inteligência é agnóstica: onde se lê 'Processo', leia-se 'Chamado' ou 'Pedido'. Você define a legenda." 
@@ -53,7 +100,7 @@ const LexOpsInsightFinal = () => {
       question: 'Tenho limite de clientes ou processos?', 
       answer: "Não. Enquanto sua assinatura estiver ativa, o processamento é ilimitado. Pode fazer dashboards para 1 cliente ou para 500. Pode processar 10 linhas ou 1 milhão. O limite é o seu hardware." 
     }
-  ];
+  ], []);
 
   if (currentView === 'login') {
     return (
@@ -67,7 +114,7 @@ const LexOpsInsightFinal = () => {
     <div className="min-h-screen bg-[#020617] text-slate-200 font-sans selection:bg-violet-500/30">
       
       {/* NAVBAR PREMIUM */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5 h-20 flex items-center md:backdrop-blur-md sm:backdrop-blur-sm no-backdrop:bg-[#020617]">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/95 border-b border-white/5 h-20 flex items-center">
         <div className="max-w-7xl mx-auto w-full px-6 flex justify-between items-center">
           
           {/* LOGO AREA */}
@@ -109,12 +156,9 @@ const LexOpsInsightFinal = () => {
       </nav>
 
       {/* HEADER / HERO SECTION */}
-      <header className="relative pt-32 pb-32 px-6 overflow-hidden">
-        {/* Background Glow */}
-        <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-violet-600/20 blur-[120px] rounded-full opacity-50 pointer-events-none" />
-        <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-violet-600/10 blur-[60px] rounded-full opacity-30 pointer-events-none" />
+      <header className="relative pt-32 pb-32 px-6 overflow-hidden bg-gradient-to-b from-violet-900/20 to-transparent">
         <div className="max-w-5xl mx-auto text-center relative z-10 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-900/30 border border-violet-500/30 text-violet-300 text-xs font-bold uppercase tracking-wider mb-8 animate-pulse-slow">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-900/30 border border-violet-500/30 text-violet-300 text-xs font-bold uppercase tracking-wider">
             <Zap size={14} className="fill-current" /> Nova Era da Advocacia
           </div>
           
@@ -157,7 +201,8 @@ const LexOpsInsightFinal = () => {
       </header>
 
       {/* VIDEO SHOWCASE */}
-      <section className="px-6 -mt-20 relative z-20 mb-24 pt-10 video-section">
+      <section ref={videoRef} className="px-6 -mt-20 relative z-20 mb-24 pt-10 video-section" style={{ minHeight: videoVisible ? 'auto' : '600px' }}>
+        {videoVisible && (
         <div className="max-w-5xl mx-auto">
           <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl relative group overflow-hidden ring-1 ring-white/5">
             <div className="absolute top-6 left-0 right-0 text-center z-10 pointer-events-none">
@@ -174,7 +219,7 @@ const LexOpsInsightFinal = () => {
                  muted 
                  loop 
                  playsInline
-                 onPlay={() => setVideoLoaded(true)}
+                 preload="none"
                  poster="/video-poster.webp"
                  loading="lazy"
                >
@@ -189,10 +234,12 @@ const LexOpsInsightFinal = () => {
             Não é mágica, é lógica. O tempo que você gastaria montando isso no PowerBI pagaria 10 anos de assinatura.
           </p>
         </div>
+        )}
       </section>
 
       {/* GATILHO TRABALHISTA */}
-      <section className="py-20 px-6 bg-slate-900/50 border-y border-white/5">
+      <section ref={gatilhoRef} className="py-20 px-6 bg-slate-900/50 border-y border-white/5">
+        {gatilhoVisible && (
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 text-rose-500 font-bold mb-6 bg-rose-500/10 px-4 py-2 rounded-full border border-rose-500/20">
             <AlertTriangle size={18} /> GATILHO DE CEGUEIRA
@@ -219,10 +266,12 @@ const LexOpsInsightFinal = () => {
             Nós não validamos se o estagiário digitou certo. Nós garantimos que, se o dado existe, ele será visto e entendido.
           </p>
         </div>
+        )}
       </section>
 
       {/* BENTO GRID */}
-      <section className="py-24 px-6">
+      <section ref={bentoRef} className="py-24 px-6">
+        {bentoVisible && (
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Refino Lógico. Sem IA. Sem Alucinação.</h2>
@@ -263,10 +312,12 @@ const LexOpsInsightFinal = () => {
             </div>
           </div>
         </div>
+        )}
       </section>
 
       {/* DEMO INTERATIVA */}
-      <section className="py-24 px-6 bg-violet-900/10 border-y border-violet-500/20">
+      <section ref={demoRef} className="py-24 px-6 bg-violet-900/10 border-y border-violet-500/20">
+        {demoVisible && (
         <div className="max-w-5xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-sm font-bold mb-6">
             <MonitorPlay size={16} /> TEST DRIVE
@@ -291,10 +342,12 @@ const LexOpsInsightFinal = () => {
             </a>
           </div>
         </div>
+        )}
       </section>
 
       {/* DEPOIMENTOS */}
-      <section className="py-24 px-6 bg-[#050A15]">
+      <section ref={depoRef} className="py-24 px-6 bg-[#050A15]">
+        {depoVisible && (
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-white mb-16">Quem parou de operar e começou a decidir</h2>
           
@@ -343,10 +396,12 @@ const LexOpsInsightFinal = () => {
             </div>
           </div>
         </div>
+        )}
       </section>
 
       {/* PRICING */}
-      <section id="pricing" className="py-24 px-6 relative overflow-hidden">
+      <section ref={pricingRef} id="pricing" className="py-24 px-6 relative overflow-hidden">
+        {pricingVisible && (
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-black text-white mb-4">Quanto custa a sua hora técnica?</h2>
@@ -401,31 +456,21 @@ const LexOpsInsightFinal = () => {
 
           </div>
         </div>
+        )}
       </section>
 
       {/* FAQ */}
-      <section className="py-24 px-6 bg-slate-900/30">
+      <section ref={faqRef} className="py-24 px-6 bg-slate-900/30">
+        {faqVisible && (
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-white mb-10 text-center">Manual Rápido (FAQ)</h2>
           <div className="space-y-4">
             {faqData.map((faq, index) => (
-              <div key={index} className="border border-white/10 rounded-xl bg-slate-900/80 overflow-hidden">
-                <button 
-                  onClick={() => toggleFAQ(index)}
-                  className="w-full flex justify-between items-center p-6 text-left hover:bg-white/5 transition-colors"
-                >
-                  <span className="font-bold text-slate-200">{faq.question}</span>
-                  {openFAQ === index ? <ChevronUp className="text-violet-500" /> : <ChevronDown className="text-slate-500" />}
-                </button>
-                {openFAQ === index && (
-                  <div className="p-6 pt-0 text-slate-400 border-t border-white/5">
-                    {faq.answer}
-                  </div>
-                )}
-              </div>
+              <FAQItem key={index} faq={faq} index={index} isOpen={openFAQ === index} onToggle={toggleFAQ} />
             ))}
           </div>
         </div>
+        )}
       </section>
 
       {/* FOOTER */}
