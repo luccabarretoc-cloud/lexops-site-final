@@ -6,7 +6,7 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #020617; /* Fundo Preto Profundo */
+  background-color: #020617;
   color: white;
   scroll-behavior: smooth;
 }
@@ -18,4 +18,98 @@ body {
 
 .animate-pulse-slow {
   animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* MOBILE-FIRST OTIMIZAÇÕES */
+
+/* Desabilitar backdrop-blur em mobile (muito caro) */
+@media (max-width: 768px) {
+  [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+    background-color: rgba(2, 6, 23, 0.95) !important;
+  }
+
+  /* Remover blur backgrounds em mobile */
+  [class*="blur-"] {
+    filter: none !important;
+  }
+
+  /* Simplificar box-shadow em mobile */
+  [class*="shadow-"] {
+    box-shadow: none !important;
+  }
+
+  /* Reduzir animações em mobile para economizar bateria */
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Exceto animações críticas de UI */
+  [class*="hover:"] {
+    animation-duration: auto;
+    transition-duration: auto;
+  }
+}
+
+/* Fonte web otimizada: display=swap para evitar FOUT */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+}
+
+/* Preload de font-weight crítico (700 para headings) */
+@font-face {
+  font-family: 'Inter';
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* Otimizar imagens responsivas */
+img {
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+
+/* Otimizar vídeos para mobile */
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Reduzir padding em mobile */
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 2rem !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  p {
+    font-size: 1rem !important;
+  }
+
+  /* Remover espaçamentos excessivos */
+  [class*="px-"] {
+    padding-left: clamp(1rem, 5vw, 1.5rem) !important;
+    padding-right: clamp(1rem, 5vw, 1.5rem) !important;
+  }
+
+  /* CTA sempre visível e clicável */
+  [class*="button"],
+  [class*="btn"],
+  a[href*="eduzz"] {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 1rem !important;
+  }
 }
