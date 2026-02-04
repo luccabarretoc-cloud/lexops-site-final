@@ -101,19 +101,6 @@ exports.handler = async (event) => {
         body: JSON.stringify({ error: 'Erro de configuração', success: false }),
       };
     }
-    console.log('🔌 [capture-lead] Inicializando clientes...');
-    let supabase, resend;
-    try {
-      supabase = createClient(supabaseUrl, supabaseKey);
-      resend = new Resend(resendKey);
-    } catch (initError) {
-      console.error('❌ Erro ao inicializar clientes:', initError.message);
-      return {
-        statusCode: 500,
-        headers,
-        body: JSON.stringify({ error: 'Erro de configuração', success: false }),
-      };
-    }
 
     console.log('📝 [capture-lead] Parseando request...');
     let body;
