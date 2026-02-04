@@ -290,17 +290,16 @@ const LexOpsInsightFinal = () => {
               </span>
             </div>
 
-            <div className="aspect-video rounded-2xl overflow-hidden relative shadow-inner group-hover:shadow-[0_0_40px_rgba(124,58,237,0.3)] transition-all duration-500 border border-white/5">
+            <div className="aspect-video rounded-2xl overflow-hidden relative shadow-inner group-hover:shadow-[0_0_40px_rgba(124,58,237,0.3)] transition-all duration-500 border border-white/5 bg-slate-900">
               <video 
                  className="w-full h-full object-cover"
                  controls 
-                 autoPlay={false}
                  muted 
                  loop 
                  playsInline
-                 preload="metadata"
-                 poster="/video-poster.webp"
-                 loading="lazy"
+                 preload="auto"
+                 poster="/logo-lexops.webp"
+                 controlsList="nodownload"
                >
                  <source src="/demo.mp4" type="video/mp4" />
                  Seu navegador não suporta a tag de vídeo.
