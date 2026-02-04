@@ -533,43 +533,43 @@ const LexOpsInsightFinal = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12">
-            <div className="bg-[#0F0821] p-8 rounded-2xl border border-rose-500/30 hover:border-rose-500/60 transition-all group cursor-pointer hover:shadow-lg hover:shadow-rose-500/10">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="text-rose-400 font-black text-5xl leading-none">①</div>
+            <div className="bg-[#0F0821] p-10 rounded-2xl border border-rose-600/40 shadow-xl shadow-rose-900/30 hover:border-rose-500/60 hover:shadow-rose-900/50 transition-all group cursor-pointer">
+              <div className="flex items-start gap-6 mb-6">
+                <div className="text-rose-400 font-black text-6xl leading-none shrink-0">①</div>
                 <div className="flex-1">
-                  <h3 className="text-white font-black text-lg mb-3 group-hover:text-rose-300 transition-colors">Seus dados estão soltos na rua</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">
+                  <h3 className="text-white font-bold text-2xl mb-4 group-hover:text-rose-300 transition-colors">Seus dados estão soltos na rua</h3>
+                  <p className="text-slate-300 text-base leading-relaxed">
                     Pasta aqui, planilha ali, arquivo naquele lugar. Ninguém sabe onde tá a verdade. E quando alguém precisa de um número? Copia-cola manual, planilha inteira se mexe e aí é que explode.
                   </p>
                 </div>
               </div>
-              <p className="text-emerald-300 text-xs font-bold">📌 Gestão sem Sistema Centralizado</p>
+              <p className="text-emerald-400 text-sm font-bold tracking-wide">📌 Gestão sem Sistema Centralizado</p>
             </div>
 
-            <div className="bg-[#0F0821] p-8 rounded-2xl border border-rose-500/30 hover:border-rose-500/60 transition-all group cursor-pointer hover:shadow-lg hover:shadow-rose-500/10">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="text-rose-400 font-black text-5xl leading-none">②</div>
+            <div className="bg-[#0F0821] p-10 rounded-2xl border border-rose-600/40 shadow-xl shadow-rose-900/30 hover:border-rose-500/60 hover:shadow-rose-900/50 transition-all group cursor-pointer">
+              <div className="flex items-start gap-6 mb-6">
+                <div className="text-rose-400 font-black text-6xl leading-none shrink-0">②</div>
                 <div className="flex-1">
-                  <h3 className="text-white font-black text-lg mb-3 group-hover:text-rose-300 transition-colors">Jurídico não fala com Financeiro</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">
+                  <h3 className="text-white font-bold text-2xl mb-4 group-hover:text-rose-300 transition-colors">Jurídico não fala com Financeiro</h3>
+                  <p className="text-slate-300 text-base leading-relaxed">
                     Você tem um número, eles têm outro. Resultado? Reunião inteira é disputa de "qual número tá certo". Enquanto isso, o cliente assiste a novela da sua incompetência.
                   </p>
                 </div>
               </div>
-              <p className="text-emerald-300 text-xs font-bold">📌 Silos de Informação</p>
+              <p className="text-emerald-400 text-sm font-bold tracking-wide">📌 Silos de Informação</p>
             </div>
 
-            <div className="bg-[#0F0821] p-8 rounded-2xl border border-rose-500/30 hover:border-rose-500/60 transition-all group cursor-pointer hover:shadow-lg hover:shadow-rose-500/10">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="text-rose-400 font-black text-5xl leading-none">③</div>
+            <div className="bg-[#0F0821] p-10 rounded-2xl border border-rose-600/40 shadow-xl shadow-rose-900/30 hover:border-rose-500/60 hover:shadow-rose-900/50 transition-all group cursor-pointer">
+              <div className="flex items-start gap-6 mb-6">
+                <div className="text-rose-400 font-black text-6xl leading-none shrink-0">③</div>
                 <div className="flex-1">
-                  <h3 className="text-white font-black text-lg mb-3 group-hover:text-rose-300 transition-colors">Você está operando no escuro</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">
+                  <h3 className="text-white font-bold text-2xl mb-4 group-hover:text-rose-300 transition-colors">Você está operando no escuro</h3>
+                  <p className="text-slate-300 text-base leading-relaxed">
                     Precisa de um insight urgente? Boa sorte. Vai levar 2 dias pra montar um gráfico que qualquer dashboard faz em 5 segundos. Enquanto isso, a oportunidade passou.
                   </p>
                 </div>
               </div>
-              <p className="text-emerald-300 text-xs font-bold">📌 Cegueira Operacional</p>
+              <p className="text-emerald-400 text-sm font-bold tracking-wide">📌 Cegueira Operacional</p>
             </div>
           </div>
         </div>
