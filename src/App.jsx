@@ -6,6 +6,7 @@ import {
   ArrowRight, LayoutDashboard, MonitorPlay,
   AlertTriangle, ExternalLink
 } from 'lucide-react';
+import LeadCapture from './components/LeadCapture';
 
 // Lazy load do LoginScreen para não bloquear o carregamento principal
 const LoginScreen = lazy(() => import('./LoginScreen').catch(() => ({
@@ -194,14 +195,6 @@ const LexOpsInsightFinal = () => {
             </a>
           </div>
 
-          <a href="/demo.html" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-violet-500/50 transition-all text-slate-300 hover:text-white backdrop-blur-sm cursor-pointer mb-6">
-            <div className="p-2 bg-emerald-600 rounded-full group-hover:scale-110 transition-transform shadow-lg shadow-emerald-900/50">
-              <LayoutDashboard size={20} className="text-white" />
-            </div>
-            <span className="font-semibold tracking-wide">Testar Dashboard Interativo (Clique Aqui)</span>
-            <ExternalLink size={14} className="opacity-50 group-hover:translate-x-1 transition-transform" />
-          </a>
-          
           <p className="text-sm text-slate-500 flex items-center justify-center gap-2">
             <ShieldCheck size={14} className="text-emerald-500" />
             Processamento Seguro via Eduzz • Risco Zero por 7 Dias
@@ -480,6 +473,134 @@ const LexOpsInsightFinal = () => {
           </div>
         </div>
         )}
+      </section>
+
+      {/* BRIDGE SECTION - PDF INTRODUCTION */}
+      <section className="py-24 px-6 bg-slate-900/40 border-y border-emerald-500/20">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-8">
+              Você está jogando dinheiro no lixo <span className="text-emerald-400">e nem sabe</span>
+            </h2>
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+              Não é dramatização. É matemática pura. Cada dia que passa com seus dados espalhados por planilhas é um dia de ineficiência que seu bolso está pagando.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12">
+            <div className="bg-[#0F0821] p-8 rounded-2xl border border-rose-500/30 hover:border-rose-500/60 transition-all group cursor-pointer hover:shadow-lg hover:shadow-rose-500/10">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="text-rose-400 font-black text-5xl leading-none">①</div>
+                <div className="flex-1">
+                  <h3 className="text-white font-black text-lg mb-3 group-hover:text-rose-300 transition-colors">Seus dados estão soltos na rua</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    Pasta aqui, planilha ali, arquivo naquele lugar. Ninguém sabe onde tá a verdade. E quando alguém precisa de um número? Copia-cola manual, planilha inteira se mexe e aí é que explode.
+                  </p>
+                </div>
+              </div>
+              <p className="text-emerald-300 text-xs font-bold">📌 Gestão sem Sistema Centralizado</p>
+            </div>
+
+            <div className="bg-[#0F0821] p-8 rounded-2xl border border-rose-500/30 hover:border-rose-500/60 transition-all group cursor-pointer hover:shadow-lg hover:shadow-rose-500/10">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="text-rose-400 font-black text-5xl leading-none">②</div>
+                <div className="flex-1">
+                  <h3 className="text-white font-black text-lg mb-3 group-hover:text-rose-300 transition-colors">Jurídico não fala com Financeiro</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    Você tem um número, eles têm outro. Resultado? Reunião inteira é disputa de "qual número tá certo". Enquanto isso, o cliente assiste a novela da sua incompetência.
+                  </p>
+                </div>
+              </div>
+              <p className="text-emerald-300 text-xs font-bold">📌 Silos de Informação</p>
+            </div>
+
+            <div className="bg-[#0F0821] p-8 rounded-2xl border border-rose-500/30 hover:border-rose-500/60 transition-all group cursor-pointer hover:shadow-lg hover:shadow-rose-500/10">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="text-rose-400 font-black text-5xl leading-none">③</div>
+                <div className="flex-1">
+                  <h3 className="text-white font-black text-lg mb-3 group-hover:text-rose-300 transition-colors">Você está operando no escuro</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    Precisa de um insight urgente? Boa sorte. Vai levar 2 dias pra montar um gráfico que qualquer dashboard faz em 5 segundos. Enquanto isso, a oportunidade passou.
+                  </p>
+                </div>
+              </div>
+              <p className="text-emerald-300 text-xs font-bold">📌 Cegueira Operacional</p>
+            </div>
+          </div>
+
+          <div className="text-center mb-12">
+            <p className="text-slate-400 text-lg">
+              Esses são apenas <span className="text-emerald-400 font-bold">3 dos 7 erros fatais</span> que estão frenando sua prática.
+            </p>
+            <p className="text-slate-500 text-sm mt-3">
+              Os outros 4? Você vai descobrir no relatório. (Spoiler: são ainda piores)
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-r from-emerald-500/15 to-emerald-500/5 border border-emerald-500/40 rounded-2xl p-10 text-center max-w-3xl mx-auto">
+            <h3 className="text-2xl font-bold text-white mb-6">Vem descobrir a lista completa</h3>
+            <p className="text-slate-300 mb-8 leading-relaxed">
+              Este relatório <strong>100% gratuito</strong> expõe os 7 erros mais perigosos (e caros) do seu dia a dia. 
+              <br /><br />
+              Você vai ver:
+            </p>
+            <ul className="text-left text-slate-300 space-y-3 mb-8 inline-block">
+              <li className="flex gap-3 items-center"><CheckCircle2 size={18} className="text-emerald-400 shrink-0" /> <span className="font-semibold">Qual erro está te custando mais dinheiro</span> (tem números)</li>
+              <li className="flex gap-3 items-center"><CheckCircle2 size={18} className="text-emerald-400 shrink-0" /> <span className="font-semibold">Como identificar cada um</span> na sua operação agora</li>
+              <li className="flex gap-3 items-center"><CheckCircle2 size={18} className="text-emerald-400 shrink-0" /> <span className="font-semibold">O roadmap pra sair dessa</span> (sem loucura)</li>
+            </ul>
+            <p className="text-emerald-300 text-sm italic font-semibold">
+              "A verdade que ninguém quer ouvir: você não precisa parar de usar Excel. Você precisa fazer ele de verdade funcionar."
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* LEAD CAPTURE SECTION */}
+      <section data-lead-capture className="py-20 px-6 bg-gradient-to-b from-violet-900/20 to-transparent border-t border-white/5">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-4">
+                <CheckCircle2 size={14} /> 100% Gratuito • Sem Cadastro
+              </div>
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+                7 Erros Fatais do Excel em Gestão de Casos Jurídicos
+              </h2>
+              <p className="text-lg text-slate-300 mb-6 leading-relaxed">
+                Você está perdendo dinheiro <span className="text-emerald-400 font-bold">todos os dias</span> gerenciando casos em planilhas. 
+              </p>
+              <p className="text-base text-slate-400 mb-8">
+                Este relatório revela os 7 erros mais comuns que custam horas de trabalho, aumentam riscos de compliance e afastam clientes premium.
+              </p>
+              <ul className="space-y-3 text-slate-300 mb-8">
+                <li className="flex gap-3 items-start">
+                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Diagnóstico real:</strong> Quanto você REALMENTE está perdendo por mês</span>
+                </li>
+                <li className="flex gap-3 items-start">
+                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Checklists práticos:</strong> Que você pode começar a usar hoje</span>
+                </li>
+                <li className="flex gap-3 items-start">
+                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Roadmap claro:</strong> Passo a passo para automatizar (sem Excel)</span>
+                </li>
+                <li className="flex gap-3 items-start">
+                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Bônus:</strong> Consulta com especialista em Legal Ops (cortesia)</span>
+                </li>
+              </ul>
+              <p className="text-sm text-emerald-300 italic border-l-2 border-emerald-500 pl-4">
+                "Se você ainda usa Excel para gerenciar prazos, responsáveis ou valores, não pode perder este material."
+              </p>
+            </div>
+
+            <div className="flex justify-center md:justify-end">
+              <LeadCapture variant="default" />
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* FOOTER */}
