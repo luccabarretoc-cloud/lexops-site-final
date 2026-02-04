@@ -129,7 +129,7 @@ const LexOpsInsightFinal = () => {
     <div className="min-h-screen bg-[#020617] text-slate-200 font-sans selection:bg-violet-500/30">
       
       {/* NAVBAR PREMIUM */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/95 border-b border-white/5 h-28 flex items-center">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/95 border-b border-white/5 h-40 flex items-center">
         <div className="max-w-7xl mx-auto w-full px-6 flex justify-between items-center">
           
           {/* LOGO AREA */}
@@ -144,12 +144,12 @@ const LexOpsInsightFinal = () => {
                   onError={() => setLogoLoadError(true)}
                   loading="lazy"
                   decoding="async"
-                  className="h-28 w-auto object-contain transition-transform group-hover:scale-110"
+                  className="h-36 w-auto object-contain transition-transform group-hover:scale-110"
                 />
               </picture>
             ) : (
               <div className="transition-transform group-hover:scale-110">
-                <ShieldCheck size={56} className="text-violet-500" />
+                <ShieldCheck size={72} className="text-violet-500" />
               </div>
             )}
           </div>
