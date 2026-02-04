@@ -66,8 +66,12 @@ exports.handler = async (event) => {
   try {
     console.log('🔐 [capture-lead] Validando ENV...');
     
-    if (!process.env.SUPABASE_URL) {
-      console.error('❌ SUPABASE_URL vazia');
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const resendKey = process.env.RESEND_API_KEY;
+
+    if (!supabaseUrl || !supabaseKey) {
+      console.error('❌ Supabase não configurado');
       return {
         statusCode: 500,
         headers,
@@ -75,33 +79,55 @@ exports.handler = async (event) => {
       };
     }
 
-    if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
-      console.error('❌ SUPABASE_SERVICE_ROLE_KEY vazia');
+    if (!resendKey) {
+      console.error('❌ Resend não configurado');
       return {
         statusCode: 500,
         headers,
         body: JSON.stringify({ error: 'Erro de configuração', success: false }),
       };
     }
-
-    if (!process.env.RESEND_API_KEY) {
-      console.error('❌ RESEND_API_KEY vazia');
-      return {
-        statusCode: 500,
-        headers,
-        body: JSON.stringify({ error: 'Erro de configuração', success: false }),
-      };
-    }
-
     console.log('🔌 [capture-lead] Inicializando clientes...');
-    const supabase = createClient(
-      process.env.SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_ROLE_KEY
-    );
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    let supabase, resend;
+    try {
+      supabase = createClient(supabaseUrl, supabaseKey);
+      resend = new Resend(resendKey);
+      console.log('✅ Clientes inicializados');
+    } catch (initError) {
+      console.error('❌ Erro ao inicializar clientes:', initError.message);
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ error: 'Erro de configuração', success: false }),
+      };
+    }
+    console.log('🔌 [capture-lead] Inicializando clientes...');
+    let supabase, resend;
+    try {
+      supabase = createClient(supabaseUrl, supabaseKey);
+      resend = new Resend(resendKey);
+    } catch (initError) {
+      console.error('❌ Erro ao inicializar clientes:', initError.message);
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ error: 'Erro de configuração', success: false }),
+      };
+    }
 
     console.log('📝 [capture-lead] Parseando request...');
-    const body = JSON.parse(event.body || '{}');
+    let body;
+    try {
+      body = JSON.parse(event.body || '{}');
+    } catch (parseError) {
+      console.error('❌ Erro ao fazer parse JSON:', parseError.message);
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ error: 'Requisição inválida', success: false }),
+      };
+    }
+    
     const { email, source = 'landing-page' } = body;
 
     if (!email) {
