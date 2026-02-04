@@ -144,12 +144,12 @@ const LexOpsInsightFinal = () => {
                   onError={() => setLogoLoadError(true)}
                   loading="lazy"
                   decoding="async"
-                  className="h-24 w-auto rounded-lg shadow-lg shadow-violet-500/40 object-contain transition-transform group-hover:scale-110"
+                  className="h-28 w-auto object-contain transition-transform group-hover:scale-110"
                 />
               </picture>
             ) : (
-              <div className="p-4 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-lg shadow-lg shadow-violet-500/40 transition-transform group-hover:scale-110">
-                <ShieldCheck size={40} className="text-white" />
+              <div className="transition-transform group-hover:scale-110">
+                <ShieldCheck size={56} className="text-violet-500" />
               </div>
             )}
           </div>
