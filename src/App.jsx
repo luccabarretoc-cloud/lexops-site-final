@@ -145,7 +145,7 @@ const LexOpsInsightFinal = () => {
                   loading="eager"
                   fetchpriority="high"
                   decoding="sync"
-                  className="h-16 w-auto object-contain scale-125 transition-transform group-hover:scale-150"
+                  className="h-20 w-auto object-contain scale-[1.8] origin-left transition-transform group-hover:scale-[2.0]"
                 />
               </picture>
             ) : (
