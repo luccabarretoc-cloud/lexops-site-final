@@ -1,356 +1,152 @@
 const { createClient } = require('@supabase/supabase-js');
 const { Resend } = require('resend');
 
-// Inicializar Supabase e Resend
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-// Template de email profissional (HTML)
+// Template de email simples e eficiente
 const EMAIL_TEMPLATE = `<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <title>Seu Guia dos 7 Erros em Excel na Advocacia</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body, table, td, p, a, span, div {
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-    }
-    body {
-      margin: 0;
-      padding: 0;
-      min-width: 100% !important;
-      width: 100% !important;
-      background-color: #f8f9fc;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.6;
-      color: #242c52;
-    }
-    table {
-      border-collapse: collapse;
-      border-spacing: 0;
-    }
-    img {
-      display: block;
-      outline: none;
-      border: none;
-    }
-    .wrapper {
-      width: 100%;
-      table-layout: fixed;
-      background-color: #f8f9fc;
-      padding: 20px 0;
-    }
-    .container {
-      width: 100%;
-      max-width: 620px;
-      margin: 0 auto;
-      background-color: #ffffff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
-    .header {
-      background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
-      padding: 32px 24px;
-      text-align: center;
-    }
-    .header-logo {
-      max-width: 140px;
-      height: auto;
-      margin: 0 auto 16px;
-      display: block;
-    }
-    .header-title {
-      margin: 0;
-      font-size: 24px;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: -0.5px;
-    }
-    .header-subtitle {
-      margin: 6px 0 0;
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.85);
-      font-weight: 400;
-    }
-    .content {
-      padding: 32px 28px 24px;
-      color: #242c52;
-      font-size: 15px;
-      line-height: 1.7;
-    }
-    .content h2 {
-      font-size: 18px;
-      font-weight: 600;
-      margin: 0 0 16px;
-      color: #242c52;
-    }
-    .content h3 {
-      font-size: 15px;
-      font-weight: 600;
-      margin: 16px 0 8px;
-      color: #7c3aed;
-    }
-    .content p {
-      margin: 0 0 14px;
-    }
-    .content ul {
-      margin: 12px 0 16px;
-      padding-left: 20px;
-    }
-    .content li {
-      margin-bottom: 8px;
-      color: #33334f;
-    }
-    .highlight-box {
-      margin: 20px 0;
-      padding: 16px;
-      background: linear-gradient(135deg, #f3e8ff 0%, #f0f9ff 100%);
-      border-left: 4px solid #7c3aed;
-      border-radius: 6px;
-      font-size: 14px;
-      color: #3e2c5f;
-      font-style: italic;
-    }
-    .cta-section {
-      text-align: center;
-      margin: 28px 0;
-      padding: 24px;
-      background-color: #f8f9fc;
-      border-radius: 8px;
-    }
-    .cta-text {
-      font-size: 16px;
-      font-weight: 600;
-      margin: 0 0 16px;
-      color: #242c52;
-    }
-    .btn-primary {
-      display: inline-block;
-      padding: 14px 32px;
-      background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
-      color: #ffffff !important;
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      border: 2px solid transparent;
-      transition: all 0.2s ease;
-      margin-bottom: 12px;
-    }
-    .fallback-link {
-      font-size: 12px;
-      color: #666888;
-      word-break: break-all;
-      margin-top: 8px;
-    }
-    .fallback-link a {
-      color: #7c3aed;
-      text-decoration: underline;
-    }
-    .divider {
-      border: 0;
-      border-top: 1px solid #e2e2f2;
-      margin: 28px 0;
-    }
-    .social-section {
-      text-align: center;
-      margin: 16px 0;
-      font-size: 13px;
-      color: #666888;
-    }
-    .social-section a {
-      color: #7c3aed;
-      text-decoration: none;
-      font-weight: 500;
-      margin: 0 8px;
-      display: inline-block;
-    }
-    .footer {
-      text-align: center;
-      padding: 20px 28px;
-      border-top: 1px solid #e2e2f2;
-      font-size: 12px;
-      color: #8a8fa8;
-      background-color: #f8f9fc;
-    }
-    .footer p {
-      margin: 4px 0;
-    }
-    @media (max-width: 600px) {
-      .wrapper {
-        padding: 10px 0;
-      }
-      .container {
-        border-radius: 0;
-      }
-      .content {
-        padding: 24px 18px;
-      }
-      .header {
-        padding: 24px 18px;
-      }
-      .header-title {
-        font-size: 20px;
-      }
-      .btn-primary {
-        width: 100%;
-        padding: 12px 16px;
-        font-size: 14px;
-        box-sizing: border-box;
-      }
-    }
-  </style>
 </head>
-<body>
-  <table class="wrapper" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-    <tr>
-      <td align="center" valign="top">
-        <table class="container" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-          <tr>
-            <td class="header" align="center" valign="middle">
-              <img src="https://www.lexopsinsight.com.br/logo-lexops.webp" alt="LexOps Insight" class="header-logo" style="width: 120px; height: auto;" />
-              <h1 class="header-title">LexOps Insight</h1>
-              <p class="header-subtitle">Guia Prático para Sair do Excel</p>
-            </td>
-          </tr>
-          <tr>
-            <td class="content" valign="top">
-              <h2>Seu guia está pronto! 🎉</h2>
-              <p>Olá,</p>
-              <p>Muito obrigado por confiar no <strong>LexOps Insight</strong>. Preparamos um relatório direto e prático sobre os <strong>7 Erros Fatais que Advogados Cometem com Excel</strong> — com benchmarks reais, estudos de caso e checklists que você pode usar hoje.</p>
-              <div class="highlight-box">
-                "Se você ainda controla processos, prazos e clientes em planilhas, este é o mapa para sair do caos e operar com visão executiva, dados confiáveis e menos risco de compliance."
-              </div>
-              <table class="cta-section" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                <tr>
-                  <td align="center">
-                    <p class="cta-text">Baixar seu PDF agora:</p>
-                    <a href="https://www.lexopsinsight.com.br/assets/pdf/7-erros-excel-juridico.pdf" class="btn-primary" target="_blank">
-                      ⬇️ Baixar PDF Grátis
-                    </a>
-                    <div class="fallback-link">
-                      <strong>Link direto:</strong><br />
-                      <a href="https://www.lexopsinsight.com.br/assets/pdf/7-erros-excel-juridico.pdf" target="_blank" style="color: #7c3aed;">
-                        https://www.lexopsinsight.com.br/assets/pdf/7-erros-excel-juridico.pdf
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-              <h3>O que você vai encontrar:</h3>
-              <ul>
-                <li><strong>Erro #1-7:</strong> Os erros mais comuns em gestão de casos jurídicos</li>
-                <li><strong>Números reais:</strong> Impacto em tempo, risco e conformidade</li>
-                <li><strong>Checklist prático:</strong> Diagnostique seu cenário em 5 minutos</li>
-                <li><strong>Próximos passos:</strong> Roadmap claro para operações mais robustas</li>
-              </ul>
-              <p>Leia com calma, compartilhe com sua equipe jurídica e marque os pontos em que vocês se reconhecem. Isso já é o início de um plano de ação concreto.</p>
-              <div class="divider"></div>
-              <p style="text-align: center; margin: 0 0 12px; font-size: 13px; color: #666888;">
-                Quer acompanhar mais conteúdos sobre <strong>Legal Operations</strong>, gestão de casos e automação jurídica?
-              </p>
-              <div class="social-section">
-                <a href="https://www.instagram.com/lexopsinsight?igsh=NHBzYXFmNmt3eDdz&utm_source=email" target="_blank">📸 Instagram</a>
-                <a href="https://www.facebook.com/people/LexOps-Insight/61587114226502" target="_blank">👥 Facebook</a>
-              </div>
-            </td>
-          </tr>
-        </table>
-        <table class="footer" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-          <tr>
-            <td align="center" style="padding: 20px 28px; font-size: 12px; color: #8a8fa8; background-color: #f8f9fc;">
-              <p style="margin: 0 0 4px;">
-                <strong>LexOps Insight</strong> · Legal Operations para times que querem sair do Excel
-              </p>
-              <p style="margin: 0;">
-                Não solicitou este material? Confira sua caixa de entrada.
-              </p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f8f9fc; margin: 0; padding: 20px;">
+  <div style="max-width: 620px; margin: 0 auto; background: white; border-radius: 12px; padding: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <h1 style="color: #7c3aed; margin-bottom: 20px; font-size: 24px;">Seu Guia dos 7 Erros em Excel na Advocacia</h1>
+    <p style="font-size: 16px; margin-bottom: 16px;">Olá,</p>
+    <p style="font-size: 16px; margin-bottom: 16px;">
+      Obrigado por se inscrever! Aqui está seu relatório exclusivo com os 7 erros mais perigosos (e caros) que estão freando sua prática.
+    </p>
+    <h2 style="font-size: 18px; color: #333; margin-bottom: 12px;">Você vai descobrir:</h2>
+    <ul style="font-size: 16px; margin-bottom: 16px; padding-left: 20px; line-height: 1.8;">
+      <li>Qual erro está te custando mais dinheiro</li>
+      <li>Como identificar cada um na sua operação</li>
+      <li>O roadmap para automatizar (sem Excel)</li>
+    </ul>
+    <p style="font-size: 16px; margin-bottom: 16px; padding: 16px; background: #f3e8ff; border-left: 4px solid #7c3aed; border-radius: 4px;">
+      <strong>Este é um relatório 100% gratuito.</strong> Aproveite a oportunidade de se atualizar com estratégias comprovadas.
+    </p>
+    <p style="font-size: 14px; color: #666; margin-bottom: 8px;">
+      <strong>Próximos passos:</strong>
+    </p>
+    <ol style="font-size: 14px; color: #666; line-height: 1.8;">
+      <li>Leia com atenção cada seção</li>
+      <li>Compartilhe com sua equipe jurídica</li>
+      <li>Implemente os aprendizados</li>
+      <li>Nos conte os resultados! 🎉</li>
+    </ol>
+    <p style="font-size: 14px; color: #999; margin-top: 24px; font-style: italic;">
+      "A verdade que ninguém quer ouvir: você não precisa parar de usar Excel. Você precisa fazer ele de verdade funcionar."
+    </p>
+    <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
+    <p style="font-size: 12px; color: #999; margin: 0;">© 2026 LexOps Insight. Todos os direitos reservados.<br />Feito para a Elite Jurídica.</p>
+  </div>
 </body>
 </html>`;
 
-// Handler da função
 exports.handler = async (event) => {
+  console.log('📧 [capture-lead] Iniciando...');
+  
+  // CORS headers
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Content-Type': 'application/json',
+  };
+
   // Apenas POST permitido
   if (event.httpMethod !== 'POST') {
+    console.log('❌ [capture-lead] Method não permitido:', event.httpMethod);
     return {
       statusCode: 405,
+      headers,
       body: JSON.stringify({ error: 'Method not allowed' }),
     };
   }
 
   try {
-    // Validar variáveis de ambiente
-    if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-      console.error('Variáveis Supabase não configuradas');
+    console.log('🔐 [capture-lead] Validando ENV...');
+    
+    if (!process.env.SUPABASE_URL) {
+      console.error('❌ SUPABASE_URL vazia');
       return {
         statusCode: 500,
-        body: JSON.stringify({ 
-          error: 'Erro na configuração do servidor. Entre em contato com suporte.',
-          success: false,
-          code: 'ENV_CONFIG_ERROR'
-        }),
+        headers,
+        body: JSON.stringify({ error: 'Erro de configuração', success: false }),
+      };
+    }
+
+    if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      console.error('❌ SUPABASE_SERVICE_ROLE_KEY vazia');
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ error: 'Erro de configuração', success: false }),
       };
     }
 
     if (!process.env.RESEND_API_KEY) {
-      console.error('API Resend não configurada');
+      console.error('❌ RESEND_API_KEY vazia');
       return {
         statusCode: 500,
-        body: JSON.stringify({ 
-          error: 'Erro na configuração de email. Entre em contato com suporte.',
-          success: false,
-          code: 'RESEND_CONFIG_ERROR'
-        }),
+        headers,
+        body: JSON.stringify({ error: 'Erro de configuração', success: false }),
       };
     }
 
+    console.log('🔌 [capture-lead] Inicializando clientes...');
+    const supabase = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_SERVICE_ROLE_KEY
+    );
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    console.log('📝 [capture-lead] Parseando request...');
     const body = JSON.parse(event.body || '{}');
     const { email, source = 'landing-page' } = body;
 
-    // Validação básica
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email)) {
+    if (!email) {
+      console.warn('⚠️ [capture-lead] Email vazio');
       return {
         statusCode: 400,
+        headers,
+        body: JSON.stringify({ error: 'Email obrigatório', success: false }),
+      };
+    }
+
+    console.log(`📧 [capture-lead] Email: ${email.substring(0, 5)}...`);
+
+    // Validar email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      console.warn(`⚠️ [capture-lead] Email inválido`);
+      return {
+        statusCode: 400,
+        headers,
         body: JSON.stringify({ error: 'Email inválido', success: false }),
       };
     }
 
-    // Verificar se email já existe (usar maybeSingle para evitar erro se não encontrar)
+    console.log('🔍 [capture-lead] Verificando existência...');
     const { data: existingLead, error: checkError } = await supabase
       .from('leads')
       .select('id')
       .eq('email', email.toLowerCase())
       .maybeSingle();
 
-    if (checkError && checkError.code !== 'PGRST116') {
-      console.error('Erro ao verificar email:', checkError);
+    if (checkError) {
+      console.error('❌ [capture-lead] Erro ao verificar:', checkError.message);
       return {
         statusCode: 500,
-        body: JSON.stringify({ 
-          error: 'Erro ao verificar email. Tente novamente.',
-          success: false,
-          code: 'CHECK_ERROR'
-        }),
+        headers,
+        body: JSON.stringify({ error: 'Erro ao processar requisição', success: false }),
       };
     }
 
     if (existingLead) {
+      console.log('✅ [capture-lead] Email já existe');
       return {
         statusCode: 200,
+        headers,
         body: JSON.stringify({
           success: true,
           message: 'Email já cadastrado',
@@ -359,28 +155,27 @@ exports.handler = async (event) => {
       };
     }
 
-    // Inserir novo lead no Supabase
-    const { error: insertError } = await supabase.from('leads').insert({
-      email: email.toLowerCase(),
-      source,
-      status: 'active',
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    });
+    console.log('💾 [capture-lead] Inserindo lead...');
+    const { error: insertError } = await supabase
+      .from('leads')
+      .insert({
+        email: email.toLowerCase(),
+        source,
+        status: 'active',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      });
 
     if (insertError) {
-      console.error('Erro ao inserir lead:', insertError);
+      console.error('❌ [capture-lead] Erro ao inserir:', insertError.message);
       return {
         statusCode: 500,
-        body: JSON.stringify({ 
-          error: 'Erro ao salvar email. Tente novamente.',
-          success: false,
-          code: 'INSERT_ERROR'
-        }),
+        headers,
+        body: JSON.stringify({ error: 'Erro ao processar requisição', success: false }),
       };
     }
 
-    // Enviar email via Resend
+    console.log('📨 [capture-lead] Enviando email...');
     const { error: emailError } = await resend.emails.send({
       from: 'LexOps Insight <noreply@lexopsinsight.com.br>',
       to: email,
@@ -389,34 +184,32 @@ exports.handler = async (event) => {
     });
 
     if (emailError) {
-      console.error('Erro ao enviar email:', emailError);
-      // Mesmo com erro no email, o lead foi salvo
-      return {
-        statusCode: 200,
-        body: JSON.stringify({
-          success: true,
-          message: 'Lead cadastrado! Verifique seu email.',
-          exists: false,
-        }),
-      };
+      console.warn('⚠️ [capture-lead] Erro ao enviar email (lead foi salvo):', emailError.message);
+    } else {
+      console.log('✅ [capture-lead] Email enviado');
     }
 
     return {
       statusCode: 200,
+      headers,
       body: JSON.stringify({
         success: true,
-        message: 'Email recebido com sucesso!',
+        message: 'Lead cadastrado com sucesso!',
         exists: false,
       }),
     };
   } catch (error) {
-    console.error('Erro geral:', error);
+    console.error('❌ [capture-lead] Erro geral:', error.message);
+    console.error('Stack:', error.stack);
     return {
       statusCode: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
-        error: 'Erro ao processar requisição. Tente novamente mais tarde.',
+        error: 'Erro ao processar requisição',
         success: false,
-        details: error.message,
       }),
     };
   }

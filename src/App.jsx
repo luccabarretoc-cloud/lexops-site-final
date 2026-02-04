@@ -572,32 +572,6 @@ const LexOpsInsightFinal = () => {
               <p className="text-emerald-300 text-xs font-bold">📌 Cegueira Operacional</p>
             </div>
           </div>
-
-          <div className="text-center mb-12">
-            <p className="text-slate-400 text-lg">
-              Esses são apenas <span className="text-emerald-400 font-bold">3 dos 7 erros fatais</span> que estão frenando sua prática.
-            </p>
-            <p className="text-slate-500 text-sm mt-3">
-              Os outros 4? Você vai descobrir no relatório. (Spoiler: são ainda piores)
-            </p>
-          </div>
-
-          <div className="bg-gradient-to-r from-emerald-500/15 to-emerald-500/5 border border-emerald-500/40 rounded-2xl p-10 text-center max-w-3xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-6">Vem descobrir a lista completa</h3>
-            <p className="text-slate-300 mb-8 leading-relaxed">
-              Este relatório <strong>100% gratuito</strong> expõe os 7 erros mais perigosos (e caros) do seu dia a dia. 
-              <br /><br />
-              Você vai ver:
-            </p>
-            <ul className="text-left text-slate-300 space-y-3 mb-8 inline-block">
-              <li className="flex gap-3 items-center"><CheckCircle2 size={18} className="text-emerald-400 shrink-0" /> <span className="font-semibold">Qual erro está te custando mais dinheiro</span> (tem números)</li>
-              <li className="flex gap-3 items-center"><CheckCircle2 size={18} className="text-emerald-400 shrink-0" /> <span className="font-semibold">Como identificar cada um</span> na sua operação agora</li>
-              <li className="flex gap-3 items-center"><CheckCircle2 size={18} className="text-emerald-400 shrink-0" /> <span className="font-semibold">O roadmap pra sair dessa</span> (sem loucura)</li>
-            </ul>
-            <p className="text-emerald-300 text-sm italic font-semibold">
-              "A verdade que ninguém quer ouvir: você não precisa parar de usar Excel. Você precisa fazer ele de verdade funcionar."
-            </p>
-          </div>
         </div>
       </section>
 
