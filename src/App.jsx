@@ -84,6 +84,11 @@ const LexOpsInsightFinal = () => {
   const [pricingRef, pricingVisible] = useLazyLoad();
   const [faqRef, faqVisible] = useLazyLoad();
   
+  // Toggle FAQ com useCallback para melhor performance
+  const toggleFAQ = useCallback((index) => {
+    setOpenFAQ(openFAQ === index ? null : index);
+  }, [openFAQ]);
+  
   // Detectar mobile
   const isMobile = useMemo(() => {
     if (typeof window !== 'undefined') {
