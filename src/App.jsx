@@ -129,7 +129,7 @@ const LexOpsInsightFinal = () => {
     <div className="min-h-screen bg-[#020617] text-slate-200 font-sans selection:bg-violet-500/30">
       
       {/* NAVBAR PREMIUM */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/95 border-b border-white/5 h-28 flex items-center md:backdrop-blur-sm transition-all duration-500">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/95 border-b border-white/5 h-20 flex items-center md:backdrop-blur-sm transition-all duration-500">
         <div className="max-w-7xl mx-auto w-full px-6 flex justify-between items-center">
           
           {/* LOGO AREA */}
@@ -145,7 +145,7 @@ const LexOpsInsightFinal = () => {
                   loading="eager"
                   fetchpriority="high"
                   decoding="sync"
-                  className="h-28 w-auto object-contain transition-transform group-hover:scale-110"
+                  className="h-16 w-auto object-contain scale-125 transition-transform group-hover:scale-150"
                 />
               </picture>
             ) : (
