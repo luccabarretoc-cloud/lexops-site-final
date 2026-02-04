@@ -292,6 +292,31 @@ exports.handler = async (event) => {
   }
 
   try {
+    // Validar variáveis de ambiente
+    if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      console.error('Variáveis Supabase não configuradas');
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ 
+          error: 'Erro na configuração do servidor. Entre em contato com suporte.',
+          success: false,
+          code: 'ENV_CONFIG_ERROR'
+        }),
+      };
+    }
+
+    if (!process.env.RESEND_API_KEY) {
+      console.error('API Resend não configurada');
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ 
+          error: 'Erro na configuração de email. Entre em contato com suporte.',
+          success: false,
+          code: 'RESEND_CONFIG_ERROR'
+        }),
+      };
+    }
+
     const body = JSON.parse(event.body || '{}');
     const { email, source = 'landing-page' } = body;
 
@@ -317,7 +342,7 @@ exports.handler = async (event) => {
         body: JSON.stringify({
           success: true,
           message: 'Email já cadastrado',
-          duplicate: true,
+          exists: true,
         }),
       };
     }
@@ -335,7 +360,11 @@ exports.handler = async (event) => {
       console.error('Erro ao inserir lead:', insertError);
       return {
         statusCode: 500,
-        body: JSON.stringify({ error: 'Erro ao salvar email', success: false }),
+        body: JSON.stringify({ 
+          error: 'Erro ao salvar email. Tente novamente.',
+          success: false,
+          code: 'INSERT_ERROR'
+        }),
       };
     }
 
@@ -354,7 +383,8 @@ exports.handler = async (event) => {
         statusCode: 200,
         body: JSON.stringify({
           success: true,
-          message: 'Lead cadastrado, mas houve erro ao enviar email',
+          message: 'Lead cadastrado! Verifique seu email.',
+          exists: false,
         }),
       };
     }
@@ -364,7 +394,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         success: true,
         message: 'Email recebido com sucesso!',
-        duplicate: false,
+        exists: false,
       }),
     };
   } catch (error) {
@@ -372,8 +402,9 @@ exports.handler = async (event) => {
     return {
       statusCode: 500,
       body: JSON.stringify({
-        error: 'Erro ao processar requisição',
+        error: 'Erro ao processar requisição. Tente novamente mais tarde.',
         success: false,
+        details: error.message,
       }),
     };
   }

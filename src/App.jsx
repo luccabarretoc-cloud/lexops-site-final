@@ -144,7 +144,7 @@ const LexOpsInsightFinal = () => {
                   onError={() => setLogoLoadError(true)}
                   loading="lazy"
                   decoding="async"
-                  className="h-10 w-auto rounded-lg shadow-lg shadow-violet-500/20 object-cover transition-transform group-hover:scale-105"
+                  className="h-14 w-auto rounded-lg shadow-lg shadow-violet-500/20 object-cover transition-transform group-hover:scale-105"
                 />
               </picture>
             ) : (
@@ -152,10 +152,6 @@ const LexOpsInsightFinal = () => {
                 <ShieldCheck size={24} className="text-white" />
               </div>
             )}
-            
-            <span className="font-bold text-white text-xl tracking-tight hidden sm:block">
-              LexOps<span className="text-violet-500">Insight</span>
-            </span>
           </div>
 
           {/* BOTÃO LOGIN */}
@@ -207,50 +203,10 @@ const LexOpsInsightFinal = () => {
         </div>
       </header>
 
-      {/* VIDEO SHOWCASE */}
-      <section ref={videoRef} className="px-6 -mt-20 relative z-20 mb-24 pt-10 video-section" style={{ minHeight: videoVisible ? 'auto' : '600px' }}>
-        {videoVisible && (
-        <div className="max-w-5xl mx-auto">
-          <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl relative group overflow-hidden ring-1 ring-white/5">
-            <div className="absolute top-6 left-0 right-0 text-center z-10 pointer-events-none">
-              <span className="bg-black/60 text-white px-4 py-1 rounded-full text-sm font-medium backdrop-blur-md border border-white/10 shadow-xl">
-                De "entregador de planilha" a Consultor Premium em segundos
-              </span>
-            </div>
-
-            <div className="aspect-video bg-black rounded-xl overflow-hidden relative shadow-inner group-hover:shadow-[0_0_30px_rgba(124,58,237,0.2)] transition-shadow duration-500">
-              <video 
-                 className="w-full h-full object-cover"
-                 controls 
-                 autoPlay={false}
-                 muted 
-                 loop 
-                 playsInline
-                 preload="none"
-                 poster="/video-poster.webp"
-                 loading="lazy"
-               >
-                 <source src="/demo.mp4" type="video/mp4" />
-                 Seu navegador não suporta a tag de vídeo.
-               </video>
-               <div className="absolute inset-0 bg-gradient-to-t from-violet-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
-            </div>
-          </div>
-          <p className="text-center text-slate-500 mt-6 text-sm max-w-2xl mx-auto flex items-center justify-center gap-2">
-            <MonitorPlay size={16} />
-            Não é mágica, é lógica. O tempo que você gastaria montando isso no PowerBI pagaria 10 anos de assinatura.
-          </p>
-        </div>
-        )}
-      </section>
-
-      {/* GATILHO TRABALHISTA */}
+      {/* GATILHO TRABALHISTA - MOVIDO ANTES DO VIDEO */}
       <section ref={gatilhoRef} className="py-20 px-6 bg-slate-900/50 border-y border-white/5">
         {gatilhoVisible && (
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 text-rose-500 font-bold mb-6 bg-rose-500/10 px-4 py-2 rounded-full border border-rose-500/20">
-            <AlertTriangle size={18} /> GATILHO DE CEGUEIRA
-          </div>
           <h2 className="text-3xl md:text-5xl font-black text-white mb-8">
             Sua planilha diz quanto vale.<br />
             O LexOps diz o que fazer.
@@ -271,6 +227,90 @@ const LexOpsInsightFinal = () => {
 
           <p className="text-slate-400 text-lg max-w-2xl mx-auto">
             Nós não validamos se o estagiário digitou certo. Nós garantimos que, se o dado existe, ele será visto e entendido.
+          </p>
+        </div>
+        )}
+      </section>
+
+      {/* LEAD CAPTURE SECTION - MOVIDO AQUI ANTES DO VIDEO */}
+      <section data-lead-capture className="py-20 px-6 bg-gradient-to-b from-violet-900/20 to-transparent border-b border-white/5">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-4">
+                <CheckCircle2 size={14} /> 100% Gratuito • Sem Cadastro
+              </div>
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+                7 Erros Fatais do Excel em Gestão de Casos Jurídicos
+              </h2>
+              <p className="text-lg text-slate-300 mb-6 leading-relaxed">
+                Você está perdendo dinheiro <span className="text-emerald-400 font-bold">todos os dias</span> gerenciando casos em planilhas. 
+              </p>
+              <p className="text-base text-slate-400 mb-8">
+                Este relatório revela os 7 erros mais comuns que custam horas de trabalho, aumentam riscos de compliance e afastam clientes premium.
+              </p>
+              <ul className="space-y-3 text-slate-300 mb-8">
+                <li className="flex gap-3 items-start">
+                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Diagnóstico real:</strong> Quanto você REALMENTE está perdendo por mês</span>
+                </li>
+                <li className="flex gap-3 items-start">
+                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Checklists práticos:</strong> Que você pode começar a usar hoje</span>
+                </li>
+                <li className="flex gap-3 items-start">
+                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Roadmap claro:</strong> Passo a passo para automatizar (sem Excel)</span>
+                </li>
+                <li className="flex gap-3 items-start">
+                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Bônus:</strong> Consulta com especialista em Legal Ops (cortesia)</span>
+                </li>
+              </ul>
+              <p className="text-sm text-emerald-300 italic border-l-2 border-emerald-500 pl-4">
+                "Se você ainda usa Excel para gerenciar prazos, responsáveis ou valores, não pode perder este material."
+              </p>
+            </div>
+
+            <div className="flex justify-center md:justify-end">
+              <LeadCapture variant="default" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* VIDEO SHOWCASE - MOVIDO PARA DEPOIS DO LEAD */}
+      <section ref={videoRef} className="px-6 relative z-20 mb-24 pt-10 video-section" style={{ minHeight: videoVisible ? 'auto' : '600px' }}>
+        {videoVisible && (
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl relative group overflow-hidden ring-1 ring-white/5">
+            <div className="absolute top-6 left-0 right-0 text-center z-10 pointer-events-none">
+              <span className="bg-black/60 text-white px-4 py-1 rounded-full text-sm font-medium backdrop-blur-md border border-white/10 shadow-xl">
+                De "entregador de planilha" a Consultor Premium em segundos
+              </span>
+            </div>
+
+            <div className="aspect-video rounded-xl overflow-hidden relative shadow-inner group-hover:shadow-[0_0_30px_rgba(124,58,237,0.2)] transition-shadow duration-500">
+              <video 
+                 className="w-full h-full object-cover"
+                 controls 
+                 autoPlay={false}
+                 muted 
+                 loop 
+                 playsInline
+                 preload="metadata"
+                 poster="/video-poster.webp"
+                 loading="lazy"
+               >
+                 <source src="/demo.mp4" type="video/mp4" />
+                 Seu navegador não suporta a tag de vídeo.
+               </video>
+               <div className="absolute inset-0 bg-gradient-to-t from-violet-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            </div>
+          </div>
+          <p className="text-center text-slate-500 mt-6 text-sm max-w-2xl mx-auto flex items-center justify-center gap-2">
+            <MonitorPlay size={16} />
+            Não é mágica, é lógica. O tempo que você gastaria montando isso no PowerBI pagaria 10 anos de assinatura.
           </p>
         </div>
         )}
@@ -517,52 +557,7 @@ const LexOpsInsightFinal = () => {
                 </div>
               </div>
               <p className="text-emerald-300 text-xs font-bold">📌 Silos de Informação</p>
-            </div>
-
-            <div className="bg-[#0F0821] p-8 rounded-2xl border border-rose-500/30 hover:border-rose-500/60 transition-all group cursor-pointer hover:shadow-lg hover:shadow-rose-500/10">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="text-rose-400 font-black text-5xl leading-none">③</div>
-                <div className="flex-1">
-                  <h3 className="text-white font-black text-lg mb-3 group-hover:text-rose-300 transition-colors">Você está operando no escuro</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">
-                    Precisa de um insight urgente? Boa sorte. Vai levar 2 dias pra montar um gráfico que qualquer dashboard faz em 5 segundos. Enquanto isso, a oportunidade passou.
-                  </p>
-                </div>
-              </div>
-              <p className="text-emerald-300 text-xs font-bold">📌 Cegueira Operacional</p>
-            </div>
-          </div>
-
-          <div className="text-center mb-12">
-            <p className="text-slate-400 text-lg">
-              Esses são apenas <span className="text-emerald-400 font-bold">3 dos 7 erros fatais</span> que estão frenando sua prática.
-            </p>
-            <p className="text-slate-500 text-sm mt-3">
-              Os outros 4? Você vai descobrir no relatório. (Spoiler: são ainda piores)
-            </p>
-          </div>
-
-          <div className="bg-gradient-to-r from-emerald-500/15 to-emerald-500/5 border border-emerald-500/40 rounded-2xl p-10 text-center max-w-3xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-6">Vem descobrir a lista completa</h3>
-            <p className="text-slate-300 mb-8 leading-relaxed">
-              Este relatório <strong>100% gratuito</strong> expõe os 7 erros mais perigosos (e caros) do seu dia a dia. 
-              <br /><br />
-              Você vai ver:
-            </p>
-            <ul className="text-left text-slate-300 space-y-3 mb-8 inline-block">
-              <li className="flex gap-3 items-center"><CheckCircle2 size={18} className="text-emerald-400 shrink-0" /> <span className="font-semibold">Qual erro está te custando mais dinheiro</span> (tem números)</li>
-              <li className="flex gap-3 items-center"><CheckCircle2 size={18} className="text-emerald-400 shrink-0" /> <span className="font-semibold">Como identificar cada um</span> na sua operação agora</li>
-              <li className="flex gap-3 items-center"><CheckCircle2 size={18} className="text-emerald-400 shrink-0" /> <span className="font-semibold">O roadmap pra sair dessa</span> (sem loucura)</li>
-            </ul>
-            <p className="text-emerald-300 text-sm italic font-semibold">
-              "A verdade que ninguém quer ouvir: você não precisa parar de usar Excel. Você precisa fazer ele de verdade funcionar."
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* LEAD CAPTURE SECTION */}
-      <section data-lead-capture className="py-20 px-6 bg-gradient-to-b from-violet-900/20 to-transparent border-t border-white/5">
+ata-lead-capture className="py-20 px-6 bg-gradient-to-b from-violet-900/20 to-transparent border-t border-white/5">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
