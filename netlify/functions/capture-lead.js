@@ -1,7 +1,5 @@
 const { createClient } = require('@supabase/supabase-js');
 const { Resend } = require('resend');
-const fs = require('fs');
-const path = require('path');
 
 // Template de email simples e eficiente
 const EMAIL_TEMPLATE = `<!DOCTYPE html>
@@ -190,32 +188,18 @@ exports.handler = async (event) => {
     }
 
     console.log('📨 [capture-lead] Enviando email com PDF...');
-    
-    // Tentar carregar PDF
-    let attachments = [];
-    try {
-      const pdfPath = path.join(__dirname, '../../public/assets/pdf/7-erros-excel-juridico.pdf.pdf');
-      if (fs.existsSync(pdfPath)) {
-        const pdfBuffer = fs.readFileSync(pdfPath);
-        attachments = [{
-          filename: '7-Erros-Excel-Juridico.pdf',
-          content: pdfBuffer,
-        }];
-        console.log('✅ PDF carregado para attachment');
-      } else {
-        console.warn('⚠️ PDF não encontrado em:', pdfPath);
-      }
-    } catch (pdfError) {
-      console.warn('⚠️ Erro ao carregar PDF:', pdfError.message);
-      // Continua sem PDF
-    }
 
     const { error: emailError } = await resend.emails.send({
       from: 'LexOps Insight <noreply@lexopsinsight.com.br>',
       to: email,
       subject: 'Seu Guia dos 7 Erros em Excel na Advocacia - PDF Grátis',
       html: EMAIL_TEMPLATE,
-      attachments: attachments,
+      attachments: [
+        {
+          filename: '7-Erros-Excel-Juridico.pdf',
+          path: 'https://lexopsinsight.com.br/assets/pdf/7-erros-excel-juridico.pdf.pdf',
+        }
+      ],
     });
 
     if (emailError) {
