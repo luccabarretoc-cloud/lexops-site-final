@@ -329,12 +329,24 @@ exports.handler = async (event) => {
       };
     }
 
-    // Verificar se email já existe
-    const { data: existingLead } = await supabase
+    // Verificar se email já existe (usar maybeSingle para evitar erro se não encontrar)
+    const { data: existingLead, error: checkError } = await supabase
       .from('leads')
       .select('id')
       .eq('email', email.toLowerCase())
-      .single();
+      .maybeSingle();
+
+    if (checkError && checkError.code !== 'PGRST116') {
+      console.error('Erro ao verificar email:', checkError);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ 
+          error: 'Erro ao verificar email. Tente novamente.',
+          success: false,
+          code: 'CHECK_ERROR'
+        }),
+      };
+    }
 
     if (existingLead) {
       return {

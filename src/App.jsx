@@ -144,7 +144,7 @@ const LexOpsInsightFinal = () => {
                   onError={() => setLogoLoadError(true)}
                   loading="lazy"
                   decoding="async"
-                  className="h-14 w-auto rounded-lg shadow-lg shadow-violet-500/20 object-cover transition-transform group-hover:scale-105"
+                  className="h-20 w-auto rounded-lg shadow-lg shadow-violet-500/20 object-contain transition-transform group-hover:scale-105"
                 />
               </picture>
             ) : (
@@ -597,51 +597,6 @@ const LexOpsInsightFinal = () => {
             <p className="text-emerald-300 text-sm italic font-semibold">
               "A verdade que ninguém quer ouvir: você não precisa parar de usar Excel. Você precisa fazer ele de verdade funcionar."
             </p>
-          </div>
-        </div>
-      </section>
-      <section data-lead-capture className="py-20 px-6 bg-gradient-to-b from-violet-900/20 to-transparent border-b border-white/5">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-4">
-                <CheckCircle2 size={14} /> 100% Gratuito • Sem Cadastro
-              </div>
-              <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
-                7 Erros Fatais do Excel em Gestão de Casos Jurídicos
-              </h2>
-              <p className="text-lg text-slate-300 mb-6 leading-relaxed">
-                Você está perdendo dinheiro <span className="text-emerald-400 font-bold">todos os dias</span> gerenciando casos em planilhas. 
-              </p>
-              <p className="text-base text-slate-400 mb-8">
-                Este relatório revela os 7 erros mais comuns que custam horas de trabalho, aumentam riscos de compliance e afastam clientes premium.
-              </p>
-              <ul className="space-y-3 text-slate-300 mb-8">
-                <li className="flex gap-3 items-start">
-                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
-                  <span><strong>Diagnóstico real:</strong> Quanto você REALMENTE está perdendo por mês</span>
-                </li>
-                <li className="flex gap-3 items-start">
-                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
-                  <span><strong>Checklists práticos:</strong> Que você pode começar a usar hoje</span>
-                </li>
-                <li className="flex gap-3 items-start">
-                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
-                  <span><strong>Roadmap claro:</strong> Passo a passo para automatizar (sem Excel)</span>
-                </li>
-                <li className="flex gap-3 items-start">
-                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
-                  <span><strong>Bônus:</strong> Consulta com especialista em Legal Ops (cortesia)</span>
-                </li>
-              </ul>
-              <p className="text-sm text-emerald-300 italic border-l-2 border-emerald-500 pl-4">
-                "Se você ainda usa Excel para gerenciar prazos, responsáveis ou valores, não pode perder este material."
-              </p>
-            </div>
-
-            <div className="flex justify-center md:justify-end">
-              <LeadCapture variant="default" />
-            </div>
           </div>
         </div>
       </section>
