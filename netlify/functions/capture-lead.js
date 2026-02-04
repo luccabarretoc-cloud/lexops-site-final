@@ -176,7 +176,6 @@ exports.handler = async (event) => {
         source,
         status: 'active',
         created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
       });
 
     if (insertError) {
