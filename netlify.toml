@@ -1,24 +1,14 @@
 [build]
-  command = "npm install && npm run build"
+  # Comando força a instalação das ferramentas de dev (Vite)
+  command = "npm install --include=dev && npm run build"
+  
+  # Pasta onde o site pronto vai ficar (Vite usa dist)
   publish = "dist"
+  
+  # Pasta das functions
+  functions = "netlify/functions"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-[context.production]
-  environment = { NODE_ENV = "production" }
-
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/"
-  [headers.values]
-    Cache-Control = "no-cache, no-store, must-revalidate"
-    X-Frame-Options = "SAMEORIGIN"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+[build.environment]
+  # Força o cache a ficar numa pasta válida, corrigindo o erro do /dev/null
+  NPM_CONFIG_CACHE = "node_modules/.cache"
+  NODE_VERSION = "20"
