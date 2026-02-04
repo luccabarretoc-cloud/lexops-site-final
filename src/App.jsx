@@ -129,7 +129,7 @@ const LexOpsInsightFinal = () => {
     <div className="min-h-screen bg-[#020617] text-slate-200 font-sans selection:bg-violet-500/30">
       
       {/* NAVBAR PREMIUM */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/95 border-b border-white/5 h-28 flex items-center backdrop-blur-sm transition-all duration-500">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/95 border-b border-white/5 h-28 flex items-center md:backdrop-blur-sm transition-all duration-500">
         <div className="max-w-7xl mx-auto w-full px-6 flex justify-between items-center">
           
           {/* LOGO AREA */}
@@ -142,8 +142,9 @@ const LexOpsInsightFinal = () => {
                   src="/logo-lexops.jpg" 
                   alt="LexOps Insight" 
                   onError={() => setLogoLoadError(true)}
-                  loading="lazy"
-                  decoding="async"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="sync"
                   className="h-28 w-auto object-contain transition-transform group-hover:scale-110"
                 />
               </picture>
@@ -169,7 +170,7 @@ const LexOpsInsightFinal = () => {
       {/* HEADER / HERO SECTION */}
       <header className="relative pt-40 pb-40 px-6 overflow-hidden bg-gradient-to-b from-violet-900/30 via-slate-900/20 to-slate-950">
         <div className="max-w-5xl mx-auto text-center relative z-10 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-900/20 border border-violet-500/20 text-violet-300 text-xs font-bold uppercase tracking-wider backdrop-blur-sm transition-all duration-300 hover:border-violet-500/40 hover:bg-violet-900/30">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-900/20 border border-violet-500/20 text-violet-300 text-xs font-bold uppercase tracking-wider md:backdrop-blur-sm transition-all duration-300 hover:border-violet-500/40 hover:bg-violet-900/30">
             <Zap size={14} className="fill-current" /> Nova Era da Advocacia
           </div>
           
@@ -283,9 +284,9 @@ const LexOpsInsightFinal = () => {
       <section ref={videoRef} className="px-6 relative z-20 mb-32 pt-16 video-section" style={{ minHeight: videoVisible ? 'auto' : '600px' }}>
         {videoVisible && (
         <div className="max-w-5xl mx-auto">
-          <div className="bg-gradient-to-b from-slate-900/60 to-slate-950 backdrop-blur-xl border border-white/5 rounded-3xl p-6 shadow-2xl relative group overflow-hidden ring-1 ring-white/5 hover:ring-white/10 hover:border-white/10 transition-all duration-500">
+          <div className="bg-gradient-to-b from-slate-900/60 to-slate-950 md:backdrop-blur-xl border border-white/5 rounded-3xl p-6 md:shadow-2xl relative group overflow-hidden ring-1 ring-white/5 hover:ring-white/10 hover:border-white/10 transition-all duration-500">
             <div className="absolute top-6 left-0 right-0 text-center z-10 pointer-events-none">
-              <span className="bg-black/60 text-white px-4 py-1 rounded-full text-sm font-medium backdrop-blur-md border border-white/10 shadow-xl">
+              <span className="bg-black/60 text-white px-4 py-1 rounded-full text-sm font-medium md:backdrop-blur-md border border-white/10 shadow-xl">
                 De "entregador de planilha" a Consultor Premium em segundos
               </span>
             </div>
@@ -365,7 +366,7 @@ const LexOpsInsightFinal = () => {
       <section ref={demoRef} className="py-32 px-6 bg-gradient-to-b from-violet-900/20 via-slate-900/10 to-slate-950 border-y border-violet-500/20">
         {demoVisible && (
         <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/15 border border-violet-500/30 text-violet-300 text-sm font-bold mb-8 backdrop-blur-sm transition-all duration-300 hover:border-violet-500/50 hover:bg-violet-500/20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/15 border border-violet-500/30 text-violet-300 text-sm font-bold mb-8 md:backdrop-blur-sm transition-all duration-300 hover:border-violet-500/50 hover:bg-violet-500/20">
             <MonitorPlay size={16} /> TEST DRIVE
           </div>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-8 max-w-3xl mx-auto leading-tight">
@@ -378,7 +379,7 @@ const LexOpsInsightFinal = () => {
           
           <div className="relative group inline-block">
             <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 to-pink-600 rounded-xl blur opacity-20 group-hover:opacity-60 transition duration-700 group-hover:duration-300"></div>
-            <a href="/demo.html" target="_blank" rel="noopener noreferrer" className="relative px-10 py-5 bg-gradient-to-r from-slate-900 to-slate-950 ring-1 ring-white/10 rounded-xl leading-none flex items-center divide-x divide-slate-700 cursor-pointer hover:ring-white/20 transition-all duration-500 group-hover:from-slate-800 group-hover:to-slate-900">
+            <a href="/demo.html" target="_blank" rel="noopener noreferrer" className="relative px-10 py-5 bg-gradient-to-r from-slate-900 to-slate-950 ring-1 ring-white/10 rounded-xl leading-none flex items-center divide-x divide-slate-700 cursor-pointer hover:ring-white/20 transition-all duration-500 group-hover:from-slate-800 group-hover:to-slate-900 md:shadow-lg">
               <span className="flex items-center space-x-5">
                 <span className="pr-6 text-slate-100 font-bold group-hover:text-white transition-colors duration-300">Abrir Simulador em Tela Cheia</span>
               </span>
@@ -579,7 +580,7 @@ const LexOpsInsightFinal = () => {
         <div className="max-w-4xl mx-auto mb-20">
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6 max-w-3xl mx-auto leading-tight">A primeira decisão inteligente começa agora.</h2>
           <p className="text-xl text-slate-400 mb-10 leading-loose">Pare de justificar números no quadro branco. Comece a conduzir o show.</p>
-          <a href="#pricing" className="inline-flex items-center gap-2 px-10 py-5 bg-white text-slate-900 hover:bg-slate-200 font-bold rounded-xl text-xl transition-all duration-500 shadow-xl shadow-white/10 hover:shadow-white/20 hover:scale-105">
+          <a href="#pricing" className="inline-flex items-center gap-2 px-10 py-5 bg-white text-slate-900 hover:bg-slate-200 font-bold rounded-xl text-xl transition-all duration-500 md:shadow-xl shadow-white/10 hover:shadow-white/20 hover:scale-105">
             QUERO MEU ACESSO AGORA <ArrowRight size={20} />
           </a>
         </div>

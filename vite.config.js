@@ -4,13 +4,17 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
-    // Code splitting agressivo
+    // Code splitting agressivo - Vendor separado para melhor cache
     rollupOptions: {
       output: {
         manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
+          'vendor': ['react', 'react-dom'],
           'icons': ['lucide-react'],
-        }
+        },
+        // Otimizar nomes para cache busting eficiente
+        entryFileNames: 'js/[name].[hash].js',
+        chunkFileNames: 'js/[name].[hash].js',
+        assetFileNames: '[ext]/[name].[hash].[ext]',
       }
     },
     // Minificação
