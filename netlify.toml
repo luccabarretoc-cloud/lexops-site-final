@@ -1,14 +1,15 @@
 [build]
-  # Comando força a instalação das ferramentas de dev (Vite)
+  # Esse comando obriga a instalação do Vite e corrige a falta de dependencias
   command = "npm install --include=dev && npm run build"
   
-  # Pasta onde o site pronto vai ficar (Vite usa dist)
+  # Pasta de saída
   publish = "dist"
   
-  # Pasta das functions
+  # Pasta das funções
   functions = "netlify/functions"
 
 [build.environment]
-  # Força o cache a ficar numa pasta válida, corrigindo o erro do /dev/null
-  NPM_CONFIG_CACHE = "node_modules/.cache"
+  # 🔴 A CURA DO ERRO /dev/null 🔴
+  # Isso força o npm a usar uma pasta válida para o cache
+  NPM_CONFIG_CACHE = "/opt/build/repo/node_modules/.npm"
   NODE_VERSION = "20"
